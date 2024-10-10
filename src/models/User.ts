@@ -19,7 +19,7 @@ export interface IUser {
   phoneNumber: string
   userType: UserType
   created: Date
-}
+} 
 
 // **** Functions **** //
 

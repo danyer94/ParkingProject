@@ -20,6 +20,7 @@
     "drizzle-orm": "^0.34.1",
     "express": "^4.21.0",
     "express-async-errors": "^3.1.1",
+    "express-generator-typescript": "^2.4.25",
     "helmet": "^8.0.0",
     "inserturlparams": "^2.0.4",
     "jet-logger": "^2.0.1",

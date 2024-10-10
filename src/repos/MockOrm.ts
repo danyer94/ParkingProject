@@ -1,6 +1,11 @@
 import jsonfile from 'jsonfile'
 
 import { IUser } from '@src/models/User'
+import { Employee } from '@src/models/Employee'
+import { Admin } from '@src/models/Admin'
+import { Customer } from '@src/models/Customer'
+import { Vehicle } from '@src/models/Vehicle'
+import { ParkingSpot } from '@src/models/ParkingSpot'
 
 // **** Variables **** //
 
@@ -10,6 +15,11 @@ const DB_FILE_NAME = 'database.json'
 
 interface IDb {
   users: IUser[]
+  employees: Employee[]
+  admins: Admin[]
+  customers: Customer[]
+  vehicles: Vehicle[]
+  parkingSpots: ParkingSpot[]
 }
 
 // **** Functions **** //
