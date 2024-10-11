@@ -1,26 +1,36 @@
 import { boolean, integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
 
-export const admins = pgTable('admins', {
+const timestamps = {
+  // updated_at: timestamp(),
+  created: timestamp().defaultNow().notNull(),
+  // deleted_at: timestamp(),
+}
+
+export const adminsTable = pgTable('admins', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
   email: text('email').notNull(),
   phoneNumber: text('phoneNumber'),
   role: text('role').notNull(), // 'admin'
   permissions: text('permissions'),
+  password: text('password'),
   address: text('address'),
+  ...timestamps,
 })
 
-export const employees = pgTable('employees', {
+export const employeesTable = pgTable('employees', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
   email: text('email').notNull(),
   phoneNumber: text('phoneNumber'),
   role: text('role').notNull(), // 'employee'
   permissions: text('permissions'),
+  password: text('password'),
   address: text('address'),
+  ...timestamps,
 })
 
-export const customers = pgTable('customers', {
+export const customersTable = pgTable('customers', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
   email: text('email').notNull(),
@@ -28,27 +38,28 @@ export const customers = pgTable('customers', {
   role: text('role').notNull(), // 'customer'
   permissions: text('permissions'),
   address: text('address'),
+  ...timestamps,
 })
 
-export const vehicles = pgTable('vehicles', {
+export const vehiclesTable = pgTable('vehicles', {
   id: serial('id').primaryKey(),
   licensePlate: text('license_plate').notNull(),
   brand: text('brand'),
   model: text('model'),
-  customerId: integer('customer_id').references(() => customers.id),
+  customerId: integer('customer_id').references(() => customersTable.id),
 })
 
-export const reservations = pgTable('reservations', {
+export const reservationsTable = pgTable('reservations', {
   id: serial('id').primaryKey(),
-  customerId: integer('customer_id').references(() => customers.id),
-  vehicleId: integer('vehicle_id').references(() => vehicles.id),
-  parkingSpotId: integer('parking_spot_id').references(() => parkingSpots.id),
+  customerId: integer('customer_id').references(() => customersTable.id),
+  vehicleId: integer('vehicle_id').references(() => vehiclesTable.id),
+  parkingSpotId: integer('parking_spot_id').references(() => parkingSpotsTable.id),
   startTime: timestamp('start_time').notNull(),
   endTime: timestamp('end_time').notNull(),
   status: text('status').notNull(), // e.g., 'reserved', 'cancelled', 'completed'
 })
 
-export const parkingSpots = pgTable('parking_spots', {
+export const parkingSpotsTable = pgTable('parking_spots', {
   id: serial('id').primaryKey(),
   spotNumber: text('spot_number').notNull(),
   isOccupied: boolean('is_occupied').notNull().default(false),
