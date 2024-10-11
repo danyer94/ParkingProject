@@ -7,7 +7,7 @@ const INVALID_CONSTRUCTOR_PARAM = 'nameOrObj arg must a string or an object ' + 
 // **** Types **** //
 
 export enum UserType {
-  CLIENT = 'client',
+  CUSTOMER = 'customer',
   EMPLOYEE = 'employee',
   ADMIN = 'admin',
 }
@@ -17,9 +17,10 @@ export interface IUser {
   name: string
   email: string
   phoneNumber: string
-  userType: UserType
+  role: UserType
+  permissions: string
   created: Date
-} 
+}
 
 // **** Functions **** //
 
@@ -31,6 +32,7 @@ function new_(
   email?: string,
   phoneNumber?: string,
   userType?: UserType,
+  permissions?: string,
   created?: Date,
   id?: number // id last cause usually set by db
 ): IUser {
@@ -39,7 +41,8 @@ function new_(
     name: name ?? '',
     email: email ?? '',
     phoneNumber: phoneNumber ?? '',
-    userType: userType ?? UserType.ADMIN,
+    role: userType ?? UserType.ADMIN,
+    permissions: permissions ?? '',
     created: created ? new Date(created) : new Date(),
   }
 }
@@ -49,7 +52,7 @@ function new_(
  */
 function from(param: object): IUser {
   if (isUser(param)) {
-    return new_(param.name, param.email, param.phoneNumber, param.userType, param.created, param.id)
+    return new_(param.name, param.email, param.phoneNumber, param.role, param.permissions, param.created, param.id)
   }
   throw new Error(INVALID_CONSTRUCTOR_PARAM)
 }

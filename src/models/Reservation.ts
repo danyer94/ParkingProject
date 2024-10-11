@@ -1,3 +1,9 @@
+export enum ReservationStatus {
+  RESERVED = 'reserved',
+  CANCELLED = 'cancelled',
+  COMPLETED = 'completed',
+}
+
 export interface Reservation {
   id: number
   customerId: number
@@ -5,7 +11,7 @@ export interface Reservation {
   parkingSpotId: number
   startTime: Date
   endTime: Date
-  status: string // e.g., 'reserved', 'cancelled', 'completed'
+  status: ReservationStatus
 }
 
 // function createReservation(): Reservation {

@@ -1,11 +1,31 @@
 import { boolean, integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
 
+export const admins = pgTable('admins', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull(),
+  email: text('email').notNull(),
+  phoneNumber: text('phoneNumber'),
+  role: text('role').notNull(), // 'admin'
+  permissions: text('permissions'),
+  address: text('address'),
+})
+
+export const employees = pgTable('employees', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull(),
+  email: text('email').notNull(),
+  phoneNumber: text('phoneNumber'),
+  role: text('role').notNull(), // 'employee'
+  permissions: text('permissions'),
+  address: text('address'),
+})
+
 export const customers = pgTable('customers', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
   email: text('email').notNull(),
   phoneNumber: text('phoneNumber'),
-  role: text('role').notNull(), // e.g., 'customer', 'employee', 'admin'
+  role: text('role').notNull(), // 'customer'
   permissions: text('permissions'),
   address: text('address'),
 })
@@ -33,20 +53,4 @@ export const parkingSpots = pgTable('parking_spots', {
   spotNumber: text('spot_number').notNull(),
   isOccupied: boolean('is_occupied').notNull().default(false),
   location: text('location'),
-})
-
-export const employees = pgTable('employees', {
-  id: serial('id').primaryKey(),
-  name: text('name').notNull(),
-  email: text('email').notNull(),
-  role: text('role').notNull(), // e.g., 'employee', 'admin'
-})
-
-export const users = pgTable('users', {
-  id: serial('id').primaryKey(),
-  name: text('name').notNull(),
-  email: text('email').notNull(),
-  phoneNumber: text('phoneNumber'),
-  role: text('role').notNull(), // e.g., 'customer', 'employee', 'admin'
-  permissions: text('permissions'),
 })
