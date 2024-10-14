@@ -1,6 +1,6 @@
 import { adminsTable } from '@src/db/schema'
 import { Admin } from '@src/models/Admin'
-import { getDatabase } from './BaseRepo'
+import { getDatabase } from './RepoUtils'
 import { eq } from 'drizzle-orm'
 
 class AdminRepo {

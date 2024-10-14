@@ -1,6 +1,6 @@
 import { customersTable } from '@src/db/schema'
 import { Customer } from '@src/models/Customer'
-import { getDatabase } from './BaseRepo'
+import { getDatabase } from './RepoUtils'
 import { eq } from 'drizzle-orm'
 
 class CustomerRepo {

@@ -1,6 +1,6 @@
 import { employeesTable } from '@src/db/schema'
 import { Employee } from '@src/models/Employee'
-import { getDatabase } from './BaseRepo'
+import { getDatabase } from './RepoUtils'
 import { eq } from 'drizzle-orm'
 
 class EmployeeRepo {

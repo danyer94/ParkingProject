@@ -1,6 +1,6 @@
 import { parkingSpotsTable } from '@src/db/schema'
 import { ParkingSpot } from '@src/models/ParkingSpot'
-import { getDatabase } from './BaseRepo'
+import { getDatabase } from './RepoUtils'
 import { eq } from 'drizzle-orm'
 
 class ParkingSpotRepo {

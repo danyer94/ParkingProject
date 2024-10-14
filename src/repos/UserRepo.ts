@@ -1,6 +1,6 @@
 import { IUser } from '@src/models/User'
 import { getRandomInt } from '@src/util/misc'
-import orm from './BaseRepo'
+import orm from './RepoUtils'
 
 // **** Functions **** //
 

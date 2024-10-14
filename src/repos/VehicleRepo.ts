@@ -1,6 +1,6 @@
 import { vehiclesTable } from '@src/db/schema'
 import { Vehicle } from '@src/models/Vehicle'
-import { getDatabase } from './BaseRepo'
+import { getDatabase } from './RepoUtils'
 import { eq } from 'drizzle-orm'
 
 class VehicleRepo {
