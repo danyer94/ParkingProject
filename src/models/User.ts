@@ -1,4 +1,4 @@
-import moment from 'moment'
+// import moment from 'moment'
 
 const INVALID_CONSTRUCTOR_PARAM = 'nameOrObj arg must a string or an object with the appropriate user keys.'
 
@@ -19,15 +19,23 @@ export interface IUser {
 }
 
 function new_(
-  name: string = '',
-  email: string = '',
-  phoneNumber: string = '',
-  userType: UserType = UserType.ADMIN,
-  permissions: string = '',
-  created: Date = new Date(),
-  id: number = -1
+  name?: string,
+  email?: string,
+  phoneNumber?: string,
+  userType?: UserType,
+  permissions?: string,
+  created?: Date,
+  id?: number // id last cause usually set by db
 ): IUser {
-  return { id, name, email, phoneNumber, role: userType, permissions, created }
+  return {
+    id: id ?? -1,
+    name: name ?? '',
+    email: email ?? '',
+    phoneNumber: phoneNumber ?? '',
+    role: userType ?? UserType.ADMIN,
+    permissions: permissions ?? '',
+    created: created ? new Date(created) : new Date(),
+  }
 }
 
 function from(param: object): IUser {
@@ -39,24 +47,26 @@ function from(param: object): IUser {
 }
 
 function isUser(arg: unknown): arg is IUser {
-  return (
-    !!arg &&
-    typeof arg === 'object' &&
-    'id' in arg &&
-    typeof arg.id === 'number' &&
-    'name' in arg &&
-    typeof arg.name === 'string' &&
-    'email' in arg &&
-    typeof arg.email === 'string' &&
-    'phoneNumber' in arg &&
-    typeof arg.phoneNumber === 'string' &&
-    'role' in arg &&
-    Object.values(UserType).includes(arg.role as UserType) &&
-    'permissions' in arg &&
-    typeof arg.permissions === 'string' &&
-    'created' in arg &&
-    moment(arg.created as string | Date).isValid()
-  )
+  const isArgValid = !!arg && typeof arg === 'object'
+  const hasValidId = isArgValid && 'id' in arg && typeof arg.id === 'number'
+  const hasValidName = isArgValid && 'name' in arg && typeof arg.name === 'string'
+  const hasValidEmail = isArgValid && 'email' in arg && typeof arg.email === 'string'
+  const hasValidPhoneNumber = isArgValid && 'phoneNumber' in arg && typeof arg.phoneNumber === 'string'
+  const hasValidRole = isArgValid && 'role' in arg && Object.values(UserType).includes(arg.role as UserType)
+  const hasValidPermissions = isArgValid && 'permissions' in arg && typeof arg.permissions === 'string'
+  // const hasValidCreated = isArgValid && 'created' in arg && moment(arg.created as string | Date).isValid()
+
+  const result =
+    isArgValid &&
+    hasValidId &&
+    hasValidName &&
+    hasValidEmail &&
+    hasValidPhoneNumber &&
+    hasValidRole &&
+    hasValidPermissions /*&&
+    hasValidCreated*/
+
+  return result
 }
 
 const isPartialUser = (arg: unknown): arg is Partial<IUser> => {
@@ -68,8 +78,8 @@ const isPartialUser = (arg: unknown): arg is Partial<IUser> => {
       ('email' in arg && typeof arg.email === 'string') ||
       ('phoneNumber' in arg && typeof arg.phoneNumber === 'string') ||
       ('role' in arg && Object.values(UserType).includes(arg.role as UserType)) ||
-      ('permissions' in arg && typeof arg.permissions === 'string') ||
-      ('created' in arg && moment(arg.created as string | Date).isValid()))
+      ('permissions' in arg && typeof arg.permissions === 'string')) /*||
+      ('created' in arg && moment(arg.created as string | Date).isValid())*/
   )
 }
 

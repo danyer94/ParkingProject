@@ -35,7 +35,7 @@ function openDb(): Promise<IDb> {
   return jsonfile.readFile(__dirname + '/' + DB_FILE_NAME) as Promise<IDb>
 }
 
-export const getDatabase = async () => {
+export const getDatabase = () => {
   // return drizzle('node-postgres', EnvVars.db_url)
 
   const pool = new Pool({

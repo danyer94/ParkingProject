@@ -1,4 +1,5 @@
 import { boolean, integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
+import { relations } from 'drizzle-orm'
 
 const timestamps = {
   // updated_at: timestamp(),
@@ -65,3 +66,35 @@ export const parkingSpotsTable = pgTable('parking_spots', {
   isOccupied: boolean('is_occupied').notNull().default(false),
   location: text('location'),
 })
+
+export const customerRelations = relations(customersTable, ({ many }) => ({
+  vehicles: many(vehiclesTable),
+  reservations: many(reservationsTable),
+}))
+
+export const vehicleRelations = relations(vehiclesTable, ({ one, many }) => ({
+  owner: one(customersTable, {
+    fields: [vehiclesTable.customerId],
+    references: [customersTable.id],
+  }),
+  reservation: many(reservationsTable),
+}))
+
+export const reservationRelations = relations(reservationsTable, ({ one }) => ({
+  customer: one(customersTable, {
+    fields: [reservationsTable.customerId],
+    references: [customersTable.id],
+  }),
+  vehicle: one(vehiclesTable, {
+    fields: [reservationsTable.vehicleId],
+    references: [vehiclesTable.id],
+  }),
+  parkingSpot: one(parkingSpotsTable, {
+    fields: [reservationsTable.parkingSpotId],
+    references: [parkingSpotsTable.id],
+  }),
+}))
+
+export const parkingSpotRelations = relations(parkingSpotsTable, ({ many }) => ({
+  reservation: many(reservationsTable),
+}))

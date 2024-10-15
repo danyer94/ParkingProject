@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "build": "npx ts-node ./scripts/build.ts",
-    "dev": "cross-env NODE_ENV=development npx ts-node ./src",
+    "dev": "NODE_ENV=development npx ts-node \"./src\"",
+    "win:dev": "cross-env NODE_ENV=development npx ts-node ./src",
     "dev:hot": "nodemon --exec \"npm run dev\" --watch ./src -e ts",
     "lint": "npx eslint ./src",
     "lint:tests": "npx eslint ./spec",
