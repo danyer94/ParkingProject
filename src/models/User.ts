@@ -1,10 +1,6 @@
-import moment from 'moment'
+// import moment from 'moment'
 
-// **** Variables **** //
-
-const INVALID_CONSTRUCTOR_PARAM = 'nameOrObj arg must a string or an object ' + 'with the appropriate user keys.'
-
-// **** Types **** //
+const INVALID_CONSTRUCTOR_PARAM = 'nameOrObj arg must a string or an object with the appropriate user keys.'
 
 export enum UserType {
   CUSTOMER = 'customer',
@@ -22,11 +18,6 @@ export interface IUser {
   created: Date
 }
 
-// **** Functions **** //
-
-/**
- * Create new User.
- */
 function new_(
   name?: string,
   email?: string,
@@ -47,38 +38,54 @@ function new_(
   }
 }
 
-/**
- * Get user instance from object.
- */
 function from(param: object): IUser {
   if (isUser(param)) {
-    return new_(param.name, param.email, param.phoneNumber, param.role, param.permissions, param.created, param.id)
+    const { name, email, phoneNumber, role, permissions, created, id } = param
+    return new_(name, email, phoneNumber, role, permissions, created, id)
   }
   throw new Error(INVALID_CONSTRUCTOR_PARAM)
 }
 
-/**
- * See if the param meets criteria to be a user.
- */
 function isUser(arg: unknown): arg is IUser {
+  const isArgValid = !!arg && typeof arg === 'object'
+  const hasValidId = isArgValid && 'id' in arg && typeof arg.id === 'number'
+  const hasValidName = isArgValid && 'name' in arg && typeof arg.name === 'string'
+  const hasValidEmail = isArgValid && 'email' in arg && typeof arg.email === 'string'
+  const hasValidPhoneNumber = isArgValid && 'phoneNumber' in arg && typeof arg.phoneNumber === 'string'
+  const hasValidRole = isArgValid && 'role' in arg && Object.values(UserType).includes(arg.role as UserType)
+  const hasValidPermissions = isArgValid && 'permissions' in arg && typeof arg.permissions === 'string'
+  // const hasValidCreated = isArgValid && 'created' in arg && moment(arg.created as string | Date).isValid()
+
+  const result =
+    isArgValid &&
+    hasValidId &&
+    hasValidName &&
+    hasValidEmail &&
+    hasValidPhoneNumber &&
+    hasValidRole &&
+    hasValidPermissions /*&&
+    hasValidCreated*/
+
+  return result
+}
+
+const isPartialUser = (arg: unknown): arg is Partial<IUser> => {
   return (
     !!arg &&
     typeof arg === 'object' &&
-    'id' in arg &&
-    typeof arg.id === 'number' &&
-    'email' in arg &&
-    typeof arg.email === 'string' &&
-    'name' in arg &&
-    typeof arg.name === 'string' &&
-    'created' in arg &&
-    moment(arg.created as string | Date).isValid()
+    (('id' in arg && typeof arg.id === 'number') ||
+      ('name' in arg && typeof arg.name === 'string') ||
+      ('email' in arg && typeof arg.email === 'string') ||
+      ('phoneNumber' in arg && typeof arg.phoneNumber === 'string') ||
+      ('role' in arg && Object.values(UserType).includes(arg.role as UserType)) ||
+      ('permissions' in arg && typeof arg.permissions === 'string')) /*||
+      ('created' in arg && moment(arg.created as string | Date).isValid())*/
   )
 }
-
-// **** Export default **** //
 
 export default {
   new: new_,
   from,
   isUser,
+  isPartialUser,
 } as const
