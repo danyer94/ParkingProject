@@ -5,7 +5,7 @@
 const crud_base = {
   Get: '/all',
   Add: '/add',
-  Update: '/update',
+  Update: '/update/:id',
   Delete: '/delete/:id',
 }
 

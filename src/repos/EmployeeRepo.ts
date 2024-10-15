@@ -56,8 +56,7 @@ const add = async (employee: Employee) => {
 const update = async (id: number, data: Partial<Employee>) => {
   try {
     const db = getDatabase()
-    const updatedEmployee = await db.update(employeesTable).set(data).where(eq(employeesTable.id, id))
-    return updatedEmployee as unknown as Employee
+    await db.update(employeesTable).set(data).where(eq(employeesTable.id, id))
   } catch (error) {
     throw new Error(JSON.stringify(error))
   }

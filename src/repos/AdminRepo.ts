@@ -56,8 +56,7 @@ const add = async (admin: Admin): Promise<Admin> => {
 const update = async (id: number, data: Partial<Admin>) => {
   try {
     const db = getDatabase()
-    const result = await db.update(adminsTable).set(data).where(eq(adminsTable.id, id))
-    return result as unknown as Admin
+    await db.update(adminsTable).set(data).where(eq(adminsTable.id, id))
   } catch (error) {
     throw new Error(JSON.stringify(error))
   }

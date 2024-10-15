@@ -56,8 +56,7 @@ const add = async (parkingSpot: ParkingSpot) => {
 const update = async (id: number, data: Partial<ParkingSpot>) => {
   try {
     const db = getDatabase()
-    const result = await db.update(parkingSpotsTable).set(data).where(eq(parkingSpotsTable.id, id))
-    return result as unknown as ParkingSpot
+    await db.update(parkingSpotsTable).set(data).where(eq(parkingSpotsTable.id, id))
   } catch (error) {
     throw new Error(JSON.stringify(error))
   }

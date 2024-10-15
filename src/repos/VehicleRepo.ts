@@ -53,11 +53,10 @@ const add = async (vehicle: Vehicle): Promise<Vehicle> => {
   }
 }
 
-const update = async (id: number, data: Partial<Vehicle>): Promise<Vehicle> => {
+const update = async (id: number, data: Partial<Vehicle>) => {
   try {
     const db = getDatabase()
-    const result = await db.update(vehiclesTable).set(data).where(eq(vehiclesTable.id, id))
-    return result as unknown as Vehicle
+    await db.update(vehiclesTable).set(data).where(eq(vehiclesTable.id, id))
   } catch (error) {
     throw new Error(JSON.stringify(error))
   }
