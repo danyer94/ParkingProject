@@ -47,3 +47,8 @@ export function isPartialReservation(arg: unknown): arg is Partial<Reservation> 
       ('status' in arg && isValidStatus))
   )
 }
+
+export default {
+  isReservation,
+  isPartialReservation,
+}
