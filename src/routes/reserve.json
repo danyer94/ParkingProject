@@ -1,0 +1,46 @@
+{
+  "req1": {
+    "vehicle": {
+      "id": 12345,
+      "licensePlate": "ABC-123",
+      "brand": "Toyota",
+      "model": "Camry",
+      "customerId": 1
+    },
+    "startTime": "2023-10-15T10:00:00Z",
+    "endTime": "2023-10-15T12:00:00Z"
+  },
+  "req2": {
+    "vehicle": {
+      "id": 2,
+      "licensePlate": "ABC-456",
+      "brand": "Nissan",
+      "model": "Máxima",
+      "customerId": 2
+    },
+    "startTime": "2023-10-15T09:00:00Z",
+    "endTime": "2023-10-15T11:00:00Z"
+  },
+  "req3": {
+    "vehicle": {
+      "id": 3,
+      "licensePlate": "ABC-789",
+      "brand": "Peugeot",
+      "model": "206",
+      "customerId": 3
+    },
+    "startTime": "2023-10-15T10:30:00Z",
+    "endTime": "2023-10-15T11:30:00Z"
+  },
+  "req4": {
+    "vehicle": {
+      "id": 4,
+      "licensePlate": "ABC-101112",
+      "brand": "Lada",
+      "model": "2104",
+      "customerId": 3
+    },
+    "startTime": "2023-10-15T08:00:00Z",
+    "endTime": "2023-10-15T11:30:00Z"
+  }
+}

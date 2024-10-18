@@ -7,6 +7,7 @@ import EmployeeRoutes from './EmployeeRoutes'
 import CustomerRoutes from './CustomerRoutes'
 import VehicleRoutes from './VehicleRoutes'
 import ParkingSpotRoutes from './ParkingSpotRoutes'
+import ReservationRoutes from './ReservationRoutes'
 
 // **** Variables **** //
 
@@ -53,12 +54,23 @@ parkingSpotRouter.post(Paths.ParkingSpots.Add, ParkingSpotRoutes.add)
 parkingSpotRouter.put(Paths.ParkingSpots.Update, ParkingSpotRoutes.update)
 parkingSpotRouter.delete(Paths.ParkingSpots.Delete, ParkingSpotRoutes.delete)
 
+const reservationRouter = Router()
+
+reservationRouter.get(Paths.Reservations.Get, ReservationRoutes.getAll)
+reservationRouter.post(Paths.Reservations.Add, ReservationRoutes.add)
+reservationRouter.put(Paths.Reservations.Update, ReservationRoutes.update)
+reservationRouter.delete(Paths.Reservations.Delete, ReservationRoutes.delete)
+reservationRouter.post(Paths.Reservations.Reserve, ReservationRoutes.reserve)
+
+apiRouter.use(Paths.Reservations.Base, reservationRouter)
+
 // Add UserRouter
 apiRouter.use(Paths.Users.Base, userRouter)
 apiRouter.use(Paths.Admins.Base, adminRouter)
 apiRouter.use(Paths.Customers.Base, customerRouter)
 apiRouter.use(Paths.Vehicles.Base, vehicleRouter)
 apiRouter.use(Paths.ParkingSpots.Base, parkingSpotRouter)
+apiRouter.use(Paths.Reservations.Base, reservationRouter)
 
 // **** Export default **** //
 

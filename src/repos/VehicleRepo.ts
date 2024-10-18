@@ -71,8 +71,20 @@ const delete_ = async (id: number): Promise<void> => {
   }
 }
 
+const getByLicensePlate = async (licensePlate: string): Promise<Vehicle | null> => {
+  try {
+    const db = getDatabase()
+    const vehicle = await db.select().from(vehiclesTable).where(eq(vehiclesTable.licensePlate, licensePlate)).limit(1)
+
+    return vehicle.length > 0 ? (vehicle[0] as Vehicle) : null
+  } catch (error) {
+    throw new Error(JSON.stringify(error))
+  }
+}
+
 export default {
   getById,
+  getByLicensePlate,
   getAll,
   persists,
   add,

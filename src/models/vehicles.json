@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "licensePlate": "ABC-123",
+    "brand": "Toyota",
+    "model": "Camry",
+    "customerId": 1
+  },
+  {
+    "id": 2,
+    "licensePlate": "ABC-123",
+    "brand": "Toyota",
+    "model": "Camry",
+    "customerId": 2
+  },
+  {
+    "id": 3,
+    "licensePlate": "ABC-123",
+    "brand": "Toyota",
+    "model": "Camry",
+    "customerId": 3
+  }
+]
