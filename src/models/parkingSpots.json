@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "spotNumber": "A1",
+    "isReserved": false,
+    "location": "First Floor"
+  },
+  {
+    "id": 2,
+    "spotNumber": "A2",
+    "isReserved": false,
+    "location": "First Floor"
+  },
+  {
+    "id": 3,
+    "spotNumber": "B1",
+    "isReserved": false,
+    "location": "Second Floor"
+  },
+  {
+    "id": 4,
+    "spotNumber": "B2",
+    "isReserved": false,
+    "location": "Second Floor"
+  },
+  {
+    "id": 5,
+    "spotNumber": "C1",
+    "isReserved": false,
+    "location": "Third Floor"
+  },
+  {
+    "id": 6,
+    "spotNumber": "C2",
+    "isReserved": false,
+    "location": "Third Floor"
+  },
+  {
+    "id": 7,
+    "spotNumber": "D1",
+    "isReserved": false,
+    "location": "Fourth Floor"
+  },
+  {
+    "id": 8,
+    "spotNumber": "D2",
+    "isReserved": false,
+    "location": "Fourth Floor"
+  },
+  {
+    "id": 9,
+    "spotNumber": "E1",
+    "isReserved": false,
+    "location": "Fifth Floor"
+  },
+  {
+    "id": 10,
+    "spotNumber": "E2",
+    "isReserved": false,
+    "location": "Fifth Floor"
+  }
+]

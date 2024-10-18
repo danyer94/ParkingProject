@@ -55,15 +55,15 @@ export const reservationsTable = pgTable('reservations', {
   customerId: integer('customer_id').references(() => customersTable.id),
   vehicleId: integer('vehicle_id').references(() => vehiclesTable.id),
   parkingSpotId: integer('parking_spot_id').references(() => parkingSpotsTable.id),
-  startTime: timestamp('start_time').notNull(),
-  endTime: timestamp('end_time').notNull(),
+  startTime: timestamp('start_time', { withTimezone: true }).notNull(),
+  endTime: timestamp('end_time', { withTimezone: true }).notNull(),
   status: text('status').notNull(), // e.g., 'reserved', 'cancelled', 'completed'
 })
 
 export const parkingSpotsTable = pgTable('parking_spots', {
   id: serial('id').primaryKey(),
   spotNumber: text('spot_number').notNull(),
-  isOccupied: boolean('is_occupied').notNull().default(false),
+  isReserved: boolean('is_reserved').notNull().default(false),
   location: text('location'),
 })
 

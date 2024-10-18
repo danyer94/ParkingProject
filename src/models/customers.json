@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Luis Fernandez",
+    "email": "luis.fernandez@example.com",
+    "phoneNumber": "+34123456783",
+    "role": "customer",
+    "permissions": "read"
+  },
+  {
+    "id": 2,
+    "name": "Ana Martinez",
+    "email": "ana.martinez@example.com",
+    "phoneNumber": "+34123456782",
+    "role": "customer",
+    "permissions": "read"
+  },
+  {
+    "id": 3,
+    "name": "Carlos Garcia",
+    "email": "carlos.garcia@example.com",
+    "phoneNumber": "+34123456781",
+    "role": "customer",
+    "permissions": "read"
+  }
+]

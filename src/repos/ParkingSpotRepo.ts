@@ -1,7 +1,7 @@
 import { parkingSpotsTable } from '@src/db/schema'
 import { ParkingSpot } from '@src/models/ParkingSpot'
 import { getDatabase } from './RepoUtils'
-import { eq } from 'drizzle-orm'
+import { eq, inArray, notInArray } from 'drizzle-orm'
 
 const getById = async (id: number) => {
   try {
@@ -71,6 +71,26 @@ const delete_ = async (id: number) => {
   }
 }
 
+const getIncludedIds = async (ids: number[]): Promise<ParkingSpot[]> => {
+  try {
+    const db = getDatabase()
+    const parkingSpots = await db.select().from(parkingSpotsTable).where(inArray(parkingSpotsTable.id, ids))
+    return parkingSpots as ParkingSpot[]
+  } catch (error) {
+    throw new Error(JSON.stringify(error))
+  }
+}
+
+const getExcludedIds = async (ids: number[]): Promise<ParkingSpot[]> => {
+  try {
+    const db = getDatabase()
+    const parkingSpots = await db.select().from(parkingSpotsTable).where(notInArray(parkingSpotsTable.id, ids))
+    return parkingSpots as ParkingSpot[]
+  } catch (error) {
+    throw new Error(JSON.stringify(error))
+  }
+}
+
 export default {
   getById,
   getAll,
@@ -78,4 +98,6 @@ export default {
   add,
   update,
   delete_,
+  getIncludedIds,
+  getExcludedIds,
 }

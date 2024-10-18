@@ -14,8 +14,8 @@ const isVehicle = (arg: unknown): arg is Vehicle => {
     typeof arg.id === 'number' &&
     'licensePlate' in arg &&
     typeof arg.licensePlate === 'string' &&
-    ('brand' in arg ? typeof arg.brand === 'string' : false) &&
-    ('model' in arg ? typeof arg.model === 'string' : false)
+    ('brand' in arg ? typeof arg.brand === 'string' : true) &&
+    ('model' in arg ? typeof arg.model === 'string' : true)
   )
 }
 
@@ -25,8 +25,8 @@ const isPartialVehicle = (arg: unknown): arg is Partial<Vehicle> => {
     typeof arg === 'object' &&
     (('id' in arg && typeof arg.id === 'number') ||
       ('licensePlate' in arg && typeof arg.licensePlate === 'string') ||
-      ('brand' in arg && typeof arg.brand === 'string') ||
-      ('model' in arg && typeof arg.model === 'string'))
+      ('brand' in arg ? typeof arg.brand === 'string' : false) ||
+      ('model' in arg ? typeof arg.model === 'string' : false))
   )
 }
 

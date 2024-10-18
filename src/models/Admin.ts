@@ -11,7 +11,7 @@ const isAdmin = (arg: unknown): arg is Admin => {
     User.isUser(arg) &&
     typeof arg === 'object' &&
     'password' in arg &&
-    ('address' in arg ? typeof arg.address === 'string' : false)
+    ('address' in arg ? typeof arg.address === 'string' : true)
   )
 }
 

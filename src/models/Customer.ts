@@ -6,11 +6,7 @@ export interface Customer extends IUser {
 
 const isCustomer = (arg: unknown): arg is Customer => {
   return (
-    !!arg &&
-    User.isUser(arg) &&
-    typeof arg === 'object' &&
-    'address' in arg &&
-    ('address' in arg ? typeof arg.address === 'string' : false)
+    !!arg && User.isUser(arg) && typeof arg === 'object' && ('address' in arg ? typeof arg.address === 'string' : true)
   )
 }
 
