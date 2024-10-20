@@ -22,6 +22,7 @@ const employeeRouter = Router()
 const customerRouter = Router()
 const vehicleRouter = Router()
 const parkingSpotRouter = Router()
+const reservationRouter = Router()
 
 // Get all users
 userRouter.get(Paths.Users.Get, UserRoutes.getAll)
@@ -29,42 +30,44 @@ userRouter.post(Paths.Users.Add, UserRoutes.add)
 userRouter.put(Paths.Users.Update, UserRoutes.update)
 userRouter.delete(Paths.Users.Delete, UserRoutes.delete)
 
+//Admins routes
 adminRouter.get(Paths.Admins.Get, AdminRoutes.getAll)
 adminRouter.post(Paths.Admins.Add, AdminRoutes.add)
 adminRouter.put(Paths.Admins.Update, AdminRoutes.update)
 adminRouter.delete(Paths.Admins.Delete, AdminRoutes.delete)
 
+//Employees routes
 employeeRouter.get(Paths.Emplployees.Get, EmployeeRoutes.getAll)
 employeeRouter.post(Paths.Emplployees.Add, EmployeeRoutes.add)
 employeeRouter.put(Paths.Emplployees.Update, EmployeeRoutes.update)
 employeeRouter.delete(Paths.Emplployees.Delete, EmployeeRoutes.delete)
 
+//CUstomers routes
 customerRouter.get(Paths.Customers.Get, CustomerRoutes.getAll)
 customerRouter.post(Paths.Customers.Add, CustomerRoutes.add)
 customerRouter.put(Paths.Customers.Update, CustomerRoutes.update)
 customerRouter.delete(Paths.Customers.Delete, CustomerRoutes.delete)
 
+//Vehicles routes
 vehicleRouter.get(Paths.Vehicles.Get, VehicleRoutes.getAll)
 vehicleRouter.post(Paths.Vehicles.Add, VehicleRoutes.add)
 vehicleRouter.put(Paths.Vehicles.Update, VehicleRoutes.update)
 vehicleRouter.delete(Paths.Vehicles.Delete, VehicleRoutes.delete)
 
+//Parking Spots routes
 parkingSpotRouter.get(Paths.ParkingSpots.Get, ParkingSpotRoutes.getAll)
 parkingSpotRouter.post(Paths.ParkingSpots.Add, ParkingSpotRoutes.add)
 parkingSpotRouter.put(Paths.ParkingSpots.Update, ParkingSpotRoutes.update)
 parkingSpotRouter.delete(Paths.ParkingSpots.Delete, ParkingSpotRoutes.delete)
+parkingSpotRouter.post(Paths.ParkingSpots.OccupationDetails, ParkingSpotRoutes.getParkingOccupationDetails)
 
-const reservationRouter = Router()
-
+//Reservations routes
 reservationRouter.get(Paths.Reservations.Get, ReservationRoutes.getAll)
 reservationRouter.post(Paths.Reservations.Add, ReservationRoutes.add)
 reservationRouter.put(Paths.Reservations.Update, ReservationRoutes.update)
 reservationRouter.delete(Paths.Reservations.Delete, ReservationRoutes.delete)
 reservationRouter.post(Paths.Reservations.Reserve, ReservationRoutes.reserve)
 
-apiRouter.use(Paths.Reservations.Base, reservationRouter)
-
-// Add UserRouter
 apiRouter.use(Paths.Users.Base, userRouter)
 apiRouter.use(Paths.Admins.Base, adminRouter)
 apiRouter.use(Paths.Customers.Base, customerRouter)

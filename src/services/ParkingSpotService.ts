@@ -1,6 +1,6 @@
 import { RouteError } from '@src/common/classes'
 import HttpStatusCodes from '@src/common/HttpStatusCodes'
-import { ParkingSpot } from '@src/models/ParkingSpot'
+import { ParkingSpot, ParkingSpotOccupationDetails } from '@src/models/ParkingSpot'
 import ParkingSpotRepo from '@src/repos/ParkingSpotRepo'
 import ReservationRepo from '@src/repos/ReservationRepo'
 
@@ -73,6 +73,39 @@ const getAvailableSpotsInTimeInterval = async (startTime: Date, endTime: Date) =
   }
 }
 
+/**
+ * Retrieves the parking occupation status details
+ *
+ * @param time the exact moment in time in wich it is wanted to know the parking spots occupation
+ * @returns A promise that resolves to an Array with the occuation details of each parking spot
+ */
+const getParkingOccupationDetails = async (time: Date) => {
+  const endDate = new Date(time)
+  endDate.setMinutes(time.getMinutes() + 1)
+  const reservedSpots = await getReservedSpotsInTimeInterval(time, endDate)
+  const availableSpots = await ParkingSpotRepo.getExcludedIds(reservedSpots.map(spot => spot.id))
+  const parkingDetails: ParkingSpotOccupationDetails[] = []
+  availableSpots.map(spot => {
+    const spotDetails: ParkingSpotOccupationDetails = {
+      spotNumber: spot.spotNumber,
+      location: spot.location,
+      isOccupied: false,
+      time,
+    }
+    parkingDetails.push(spotDetails)
+  })
+  reservedSpots.map(spot => {
+    const spotDetails: ParkingSpotOccupationDetails = {
+      spotNumber: spot.spotNumber,
+      location: spot.location,
+      isOccupied: true,
+      time,
+    }
+    parkingDetails.push(spotDetails)
+  })
+  return parkingDetails
+}
+
 export default {
   getAll,
   addOne,
@@ -80,4 +113,5 @@ export default {
   delete: _delete,
   getReservedSpotsInTimeInterval,
   getAvailableSpotsInTimeInterval,
+  parkingOccupationDetails: getParkingOccupationDetails,
 } as const
