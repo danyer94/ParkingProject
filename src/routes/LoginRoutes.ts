@@ -12,7 +12,7 @@ const customerLogin = async (req: IReq, res: IRes) => {
   const { username, password } = req.body
   try {
     const customer = await LoginService.customerLogin(String(username), String(password))
-    const token = jwt.sign({ id: customer.id, username: customer.username }, EnvVars.Jwt.Secret, {
+    const token = jwt.sign({ id: customer.id, username: customer.username, role: customer.role }, EnvVars.Jwt.Secret, {
       expiresIn: EnvVars.Jwt.Exp,
     })
     const publicCustomer: PublicCustomer = Customer.ObtainPublicCustomer(customer)
@@ -31,9 +31,13 @@ const adminEmployeeLogin = async (req: IReq, res: IRes) => {
   const { username, password } = req.body
   try {
     const adminOrEmployee = await LoginService.adminEmployeeLogin(String(username), String(password))
-    const token = jwt.sign({ id: adminOrEmployee.id, username: adminOrEmployee.username }, EnvVars.Jwt.Secret, {
-      expiresIn: EnvVars.Jwt.Exp,
-    })
+    const token = jwt.sign(
+      { id: adminOrEmployee.id, username: adminOrEmployee.username, role: adminOrEmployee.role },
+      EnvVars.Jwt.Secret,
+      {
+        expiresIn: EnvVars.Jwt.Exp,
+      }
+    )
     const isAdmin = Admin.isAdmin(adminOrEmployee)
     const publicAdminOrEmployee = isAdmin
       ? Admin.ObtainPublicAdmin(adminOrEmployee)
