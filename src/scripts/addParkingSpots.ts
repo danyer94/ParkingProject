@@ -11,9 +11,7 @@ const parkingSpots: ParkingSpot[] = JSON.parse(
 const addParkingSpots = async () => {
   try {
     const responses = await Promise.all(
-      parkingSpots.map(
-        spot => axios.post('http://localhost:3000/api/parking-spots/add', { parkingSpot: spot }) // Cambia la URL según tu API
-      )
+      parkingSpots.map(spot => axios.post('http://localhost:3000/api/parking-spots/add', { parkingSpot: spot }))
     )
 
     responses.forEach(response => {

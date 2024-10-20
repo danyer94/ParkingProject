@@ -81,6 +81,7 @@ const getMaxId = async () => {
 const getReservationsOverlapingTimeInterval = async (startTime: Date, endTime: Date) => {
   try {
     const db = getDatabase()
+    const allReservations = await db.select().from(reservationsTable)
     const leftOverlappingReservationsPromise = db
       .select()
       .from(reservationsTable)

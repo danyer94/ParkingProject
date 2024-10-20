@@ -2,8 +2,6 @@
  * Express router paths go here.
  */
 
-import Reservation from '@src/models/Reservation'
-
 const crud_base = {
   Get: '/all',
   Add: '/add',
@@ -36,6 +34,7 @@ export default {
   ParkingSpots: {
     Base: '/parking-spots',
     ...crud_base,
+    OccupationDetails: '/occupation-details',
   },
   Reservations: {
     Base: '/reservations',

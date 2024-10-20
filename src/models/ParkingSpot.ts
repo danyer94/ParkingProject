@@ -5,6 +5,13 @@ export interface ParkingSpot {
   location?: string
 }
 
+export type ParkingSpotOccupationDetails = {
+  spotNumber: string
+  location?: string
+  isOccupied: boolean
+  time: Date
+}
+
 const isParkingSpot = (arg: unknown): arg is ParkingSpot => {
   return (
     !!arg &&
