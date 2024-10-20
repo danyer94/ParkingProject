@@ -29,7 +29,13 @@ const isPartialEmployee = (arg: unknown): arg is Partial<Employee> => {
   )
 }
 
+const ObtainPublicEmployee = (employee: Employee): PublicEmployee => {
+  const publicEmployee: PublicEmployee = { ...User.ObtainPublicUser(employee), address: employee.address }
+  return publicEmployee
+}
+
 export default {
   isEmployee,
   isPartialEmployee,
+  ObtainPublicEmployee,
 }

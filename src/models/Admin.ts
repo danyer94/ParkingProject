@@ -29,7 +29,13 @@ const isPartialAdmin = (arg: unknown): arg is Partial<Admin> => {
   )
 }
 
+const ObtainPublicAdmin = (admin: Admin): PublicAdmin => {
+  const publicAdmin: PublicAdmin = { ...User.ObtainPublicUser(admin), address: admin.address }
+  return publicAdmin
+}
+
 export default {
   isAdmin,
   isPartialAdmin,
+  ObtainPublicAdmin,
 }

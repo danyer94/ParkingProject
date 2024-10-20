@@ -2,6 +2,8 @@
  * Express router paths go here.
  */
 
+import { Sign } from 'crypto'
+
 const crud_base = {
   Get: '/all',
   Add: '/add',
@@ -11,6 +13,14 @@ const crud_base = {
 
 export default {
   Base: '/api',
+  Login: {
+    public: '/login',
+    private: '/login/private',
+  },
+  Signup: {
+    public: '/signup',
+    private: '/signup/private',
+  },
   Users: {
     Base: '/users',
     ...crud_base,
@@ -19,8 +29,8 @@ export default {
     Base: '/admins',
     ...crud_base,
   },
-  Emplployees: {
-    Base: '/emplployees',
+  Employees: {
+    Base: '/employees',
     ...crud_base,
   },
   Customers: {

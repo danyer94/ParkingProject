@@ -11,6 +11,7 @@ export enum UserType {
 export interface IUser {
   id: number
   name: string
+  username: string
   email: string
   phoneNumber: string
   role: UserType
@@ -18,8 +19,9 @@ export interface IUser {
   created: Date
 }
 
-export interface IPublicUser extends IUser {
+export interface IPublicUser {
   name: string
+  username: string
   email: string
   phoneNumber: string
   role: UserType
@@ -27,6 +29,7 @@ export interface IPublicUser extends IUser {
 
 function new_(
   name?: string,
+  username?: string,
   email?: string,
   phoneNumber?: string,
   userType?: UserType,
@@ -37,6 +40,7 @@ function new_(
   return {
     id: id ?? -1,
     name: name ?? '',
+    username: username ?? '',
     email: email ?? '',
     phoneNumber: phoneNumber ?? '',
     role: userType ?? UserType.ADMIN,
@@ -47,8 +51,8 @@ function new_(
 
 function from(param: object): IUser {
   if (isUser(param)) {
-    const { name, email, phoneNumber, role, permissions, created, id } = param
-    return new_(name, email, phoneNumber, role, permissions, created, id)
+    const { name, username, email, phoneNumber, role, permissions, created, id } = param
+    return new_(name, username, email, phoneNumber, role, permissions, created, id)
   }
   throw new Error(INVALID_CONSTRUCTOR_PARAM)
 }
@@ -57,6 +61,7 @@ function isUser(arg: unknown): arg is IUser {
   const isArgValid = !!arg && typeof arg === 'object'
   const hasValidId = isArgValid && 'id' in arg && typeof arg.id === 'number'
   const hasValidName = isArgValid && 'name' in arg && typeof arg.name === 'string'
+  const hasValidUsername = isArgValid && 'username' in arg && typeof arg.username === 'string'
   const hasValidEmail = isArgValid && 'email' in arg && typeof arg.email === 'string'
   const hasValidPhoneNumber = isArgValid && 'phoneNumber' in arg && typeof arg.phoneNumber === 'string'
   const hasValidRole = isArgValid && 'role' in arg && Object.values(UserType).includes(arg.role as UserType)
@@ -67,6 +72,7 @@ function isUser(arg: unknown): arg is IUser {
     isArgValid &&
     hasValidId &&
     hasValidName &&
+    hasValidUsername &&
     hasValidEmail &&
     hasValidPhoneNumber &&
     hasValidRole &&
@@ -90,9 +96,21 @@ const isPartialUser = (arg: unknown): arg is Partial<IUser> => {
   )
 }
 
+const ObtainPublicUser = (user: IUser): IPublicUser => {
+  const publicUser = {
+    name: user.name,
+    username: user.username,
+    email: user.email,
+    phoneNumber: user.phoneNumber,
+    role: user.role,
+  }
+  return publicUser
+}
+
 export default {
   new: new_,
   from,
   isUser,
   isPartialUser,
+  ObtainPublicUser,
 } as const

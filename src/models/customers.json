@@ -5,7 +5,9 @@
     "email": "luis.fernandez@example.com",
     "phoneNumber": "+34123456783",
     "role": "customer",
-    "permissions": "read"
+    "permissions": "read",
+    "username": "luisfernandez",
+    "password": "password123"
   },
   {
     "id": 2,
@@ -13,7 +15,9 @@
     "email": "ana.martinez@example.com",
     "phoneNumber": "+34123456782",
     "role": "customer",
-    "permissions": "read"
+    "permissions": "read",
+    "username": "anamartinez",
+    "password": "password456"
   },
   {
     "id": 3,
@@ -21,6 +25,8 @@
     "email": "carlos.garcia@example.com",
     "phoneNumber": "+34123456781",
     "role": "customer",
-    "permissions": "read"
+    "permissions": "read",
+    "username": "carlosgarcia",
+    "password": "password789"
   }
 ]

@@ -2,55 +2,55 @@
   {
     "id": 1,
     "name": "Juan Perez",
+    "username": "jperez",
     "email": "juan.perez@example.com",
     "phoneNumber": "123-456-7890",
     "role": "admin",
     "permissions": "all",
-    "created": "2023-10-01T12:00:00Z",
     "password": "admin123",
     "address": "123 Main St, Ciudad, País"
   },
   {
     "id": 2,
     "name": "Maria Lopez",
+    "username": "mlopez",
     "email": "maria.lopez@example.com",
     "phoneNumber": "234-567-8901",
     "role": "admin",
     "permissions": "all",
-    "created": "2023-10-02T12:00:00Z",
     "password": "securePass456",
     "address": "456 Elm St, Ciudad, País"
   },
   {
     "id": 3,
     "name": "Carlos Garcia",
+    "username": "cgarcia",
     "email": "carlos.garcia@example.com",
     "phoneNumber": "345-678-9012",
     "role": "admin",
     "permissions": "all",
-    "created": "2023-10-03T12:00:00Z",
     "password": "mySecret789",
     "address": "789 Oak St, Ciudad, País"
   },
   {
     "id": 4,
     "name": "Ana Torres",
+    "username": "atorres",
     "email": "ana.torres@example.com",
     "phoneNumber": "456-789-0123",
     "role": "admin",
     "permissions": "all",
-    "created": "2023-10-04T12:00:00Z",
     "password": "adminPass101",
     "address": "101 Pine St, Ciudad, País"
   },
   {
     "id": 5,
     "name": "Luis Martinez",
+    "username": "lmartinez",
     "email": "luis.martinez@example.com",
     "phoneNumber": "567-890-1234",
     "role": "admin",
     "permissions": "all",
-    "created": "2023-10-05T12:00:00Z",
     "password": "password2023",
     "address": "202 Maple St, Ciudad, País"
   }
