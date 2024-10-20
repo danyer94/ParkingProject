@@ -42,7 +42,7 @@ employeeRouter.post(Paths.Emplployees.Add, EmployeeRoutes.add)
 employeeRouter.put(Paths.Emplployees.Update, EmployeeRoutes.update)
 employeeRouter.delete(Paths.Emplployees.Delete, EmployeeRoutes.delete)
 
-//CUstomers routes
+//Customers routes
 customerRouter.get(Paths.Customers.Get, CustomerRoutes.getAll)
 customerRouter.post(Paths.Customers.Add, CustomerRoutes.add)
 customerRouter.put(Paths.Customers.Update, CustomerRoutes.update)

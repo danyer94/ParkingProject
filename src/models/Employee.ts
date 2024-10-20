@@ -1,7 +1,11 @@
-import User, { IUser } from './User'
+import User, { IPublicUser, IUser } from './User'
 
 export interface Employee extends IUser {
   password: string
+  address?: string
+}
+
+export interface PublicEmployee extends IPublicUser {
   address?: string
 }
 

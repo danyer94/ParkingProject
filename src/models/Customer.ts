@@ -1,6 +1,10 @@
-import User, { IUser } from './User'
+import User, { IPublicUser, IUser } from './User'
 
 export interface Customer extends IUser {
+  address?: string
+}
+
+export interface PublicCustomer extends IPublicUser {
   address?: string
 }
 

@@ -1,7 +1,11 @@
-import User, { IUser } from './User'
+import User, { IPublicUser, IUser } from './User'
 
 export interface Admin extends IUser {
   password: string
+  address?: string
+}
+
+export interface PublicAdmin extends IPublicUser {
   address?: string
 }
 

@@ -18,6 +18,13 @@ export interface IUser {
   created: Date
 }
 
+export interface IPublicUser extends IUser {
+  name: string
+  email: string
+  phoneNumber: string
+  role: UserType
+}
+
 function new_(
   name?: string,
   email?: string,
