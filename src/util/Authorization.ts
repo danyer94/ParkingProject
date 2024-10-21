@@ -29,8 +29,18 @@ const isCustomer = (req: IReq, res: IRes) => {
   return true
 }
 
+const isAuthorized = (req: IReq, res: IRes, authorizedUsersType: UserType[]) => {
+  const session = (req.body as any).session
+  if (!session?.user?.role || !authorizedUsersType.includes(session?.user?.role)) {
+    res.status(HttpStatusCodes.UNAUTHORIZED).send('Unauthorized')
+    return false
+  }
+  return true
+}
+
 export default {
   isAdmin,
   isEmployee,
   isCustomer,
+  isAuthorized,
 }
