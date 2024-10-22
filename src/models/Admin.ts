@@ -1,7 +1,11 @@
-import User, { IUser } from './User'
+import User, { IPublicUser, IUser } from './User'
 
 export interface Admin extends IUser {
   password: string
+  address?: string
+}
+
+export interface PublicAdmin extends IPublicUser {
   address?: string
 }
 
@@ -25,7 +29,13 @@ const isPartialAdmin = (arg: unknown): arg is Partial<Admin> => {
   )
 }
 
+const ObtainPublicAdmin = (admin: Admin): PublicAdmin => {
+  const publicAdmin: PublicAdmin = { ...User.ObtainPublicUser(admin), address: admin.address }
+  return publicAdmin
+}
+
 export default {
   isAdmin,
   isPartialAdmin,
+  ObtainPublicAdmin,
 }

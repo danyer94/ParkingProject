@@ -13,6 +13,16 @@ const getById = async (id: number) => {
   }
 }
 
+const getByUsername = async (username: string) => {
+  try {
+    const db = getDatabase()
+    const employee = (await db.select().from(employeesTable).where(eq(employeesTable.username, username)).limit(1))[0]
+    return employee as Employee
+  } catch (error) {
+    throw new Error(JSON.stringify(error))
+  }
+}
+
 const persists = async (id: number): Promise<boolean> => {
   try {
     const employee = await getById(id)
@@ -73,6 +83,7 @@ const delete_ = async (id: number) => {
 
 export default {
   getById,
+  getByUsername,
   getAll,
   persists,
   add,

@@ -10,6 +10,7 @@ const timestamps = {
 export const adminsTable = pgTable('admins', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
+  username: text('username').notNull(),
   email: text('email').notNull(),
   phoneNumber: text('phoneNumber'),
   role: text('role').notNull(), // 'admin'
@@ -22,6 +23,7 @@ export const adminsTable = pgTable('admins', {
 export const employeesTable = pgTable('employees', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
+  username: text('username').notNull(),
   email: text('email').notNull(),
   phoneNumber: text('phoneNumber'),
   role: text('role').notNull(), // 'employee'
@@ -34,6 +36,7 @@ export const employeesTable = pgTable('employees', {
 export const customersTable = pgTable('customers', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
+  username: text('username').notNull(),
   email: text('email').notNull(),
   phoneNumber: text('phoneNumber'),
   role: text('role').notNull(), // 'customer'

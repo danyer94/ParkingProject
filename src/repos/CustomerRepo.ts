@@ -13,6 +13,16 @@ const getById = async (id: number): Promise<Customer> => {
   }
 }
 
+const getByUsername = async (username: string): Promise<Customer> => {
+  try {
+    const db = getDatabase()
+    const customer = (await db.select().from(customersTable).where(eq(customersTable.username, username)).limit(1))[0]
+    return customer as unknown as Customer
+  } catch (error) {
+    throw new Error(JSON.stringify(error))
+  }
+}
+
 const persists = async (id: number): Promise<boolean> => {
   try {
     const customer = await getById(id)
@@ -74,6 +84,7 @@ const delete_ = async (id: number) => {
 
 export default {
   getById,
+  getByUsername,
   getAll,
   persists,
   add,

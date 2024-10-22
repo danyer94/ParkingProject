@@ -1,7 +1,11 @@
-import User, { IUser } from './User'
+import User, { IPublicUser, IUser } from './User'
 
 export interface Employee extends IUser {
   password: string
+  address?: string
+}
+
+export interface PublicEmployee extends IPublicUser {
   address?: string
 }
 
@@ -25,7 +29,13 @@ const isPartialEmployee = (arg: unknown): arg is Partial<Employee> => {
   )
 }
 
+const ObtainPublicEmployee = (employee: Employee): PublicEmployee => {
+  const publicEmployee: PublicEmployee = { ...User.ObtainPublicUser(employee), address: employee.address }
+  return publicEmployee
+}
+
 export default {
   isEmployee,
   isPartialEmployee,
+  ObtainPublicEmployee,
 }

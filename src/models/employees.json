@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "name": "Sofia Ramirez",
+    "email": "sofia.ramirez@example.com",
+    "phoneNumber": "+34123456790",
+    "role": "employee",
+    "permissions": "read",
+    "username": "sofiaramirez",
+    "password": "employeePass123",
+    "address": "123 Avenida Principal, Ciudad, País"
+  },
+  {
+    "id": 2,
+    "name": "Miguel Torres",
+    "email": "miguel.torres@example.com",
+    "phoneNumber": "+34123456791",
+    "role": "employee",
+    "permissions": "read",
+    "username": "migueltorres",
+    "password": "securePass789",
+    "address": "456 Calle Secundaria, Ciudad, País"
+  },
+  {
+    "id": 3,
+    "name": "Laura Gonzalez",
+    "email": "laura.gonzalez@example.com",
+    "phoneNumber": "+34123456792",
+    "role": "employee",
+    "permissions": "read",
+    "username": "lauragonzalez",
+    "password": "mySecret456",
+    "address": "789 Boulevard Tercero, Ciudad, País"
+  }
+]

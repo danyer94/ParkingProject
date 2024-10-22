@@ -8,6 +8,7 @@ import CustomerRoutes from './CustomerRoutes'
 import VehicleRoutes from './VehicleRoutes'
 import ParkingSpotRoutes from './ParkingSpotRoutes'
 import ReservationRoutes from './ReservationRoutes'
+import LoginRoutes from './LoginRoutes'
 
 // **** Variables **** //
 
@@ -23,6 +24,7 @@ const customerRouter = Router()
 const vehicleRouter = Router()
 const parkingSpotRouter = Router()
 const reservationRouter = Router()
+const loginRouter = Router()
 
 // Get all users
 userRouter.get(Paths.Users.Get, UserRoutes.getAll)
@@ -37,12 +39,12 @@ adminRouter.put(Paths.Admins.Update, AdminRoutes.update)
 adminRouter.delete(Paths.Admins.Delete, AdminRoutes.delete)
 
 //Employees routes
-employeeRouter.get(Paths.Emplployees.Get, EmployeeRoutes.getAll)
-employeeRouter.post(Paths.Emplployees.Add, EmployeeRoutes.add)
-employeeRouter.put(Paths.Emplployees.Update, EmployeeRoutes.update)
-employeeRouter.delete(Paths.Emplployees.Delete, EmployeeRoutes.delete)
+employeeRouter.get(Paths.Employees.Get, EmployeeRoutes.getAll)
+employeeRouter.post(Paths.Employees.Add, EmployeeRoutes.add)
+employeeRouter.put(Paths.Employees.Update, EmployeeRoutes.update)
+employeeRouter.delete(Paths.Employees.Delete, EmployeeRoutes.delete)
 
-//CUstomers routes
+//Customers routes
 customerRouter.get(Paths.Customers.Get, CustomerRoutes.getAll)
 customerRouter.post(Paths.Customers.Add, CustomerRoutes.add)
 customerRouter.put(Paths.Customers.Update, CustomerRoutes.update)
@@ -68,12 +70,18 @@ reservationRouter.put(Paths.Reservations.Update, ReservationRoutes.update)
 reservationRouter.delete(Paths.Reservations.Delete, ReservationRoutes.delete)
 reservationRouter.post(Paths.Reservations.Reserve, ReservationRoutes.reserve)
 
+//Login routes
+loginRouter.post(Paths.Login.public, LoginRoutes.customerLogin)
+loginRouter.post(Paths.Login.private, LoginRoutes.adminEmployeeLogin)
+
 apiRouter.use(Paths.Users.Base, userRouter)
 apiRouter.use(Paths.Admins.Base, adminRouter)
+apiRouter.use(Paths.Employees.Base, employeeRouter)
 apiRouter.use(Paths.Customers.Base, customerRouter)
 apiRouter.use(Paths.Vehicles.Base, vehicleRouter)
 apiRouter.use(Paths.ParkingSpots.Base, parkingSpotRouter)
 apiRouter.use(Paths.Reservations.Base, reservationRouter)
+apiRouter.use(loginRouter)
 
 // **** Export default **** //
 

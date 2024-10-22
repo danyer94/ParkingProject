@@ -13,6 +13,16 @@ const getById = async (id: number): Promise<Admin> => {
   }
 }
 
+const getByUsername = async (username: string): Promise<Admin> => {
+  try {
+    const db = getDatabase()
+    const admin = (await db.select().from(adminsTable).where(eq(adminsTable.username, username)).limit(1))[0]
+    return admin as unknown as Admin
+  } catch (error) {
+    throw new Error(JSON.stringify(error))
+  }
+}
+
 const persists = async (id: number): Promise<boolean> => {
   try {
     const admin = await getById(id)
@@ -73,6 +83,7 @@ const delete_ = async (id: number) => {
 
 export default {
   getById,
+  getByUsername,
   getAll,
   persists,
   add,
