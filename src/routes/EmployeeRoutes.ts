@@ -9,7 +9,8 @@ import { UserType } from '@src/models/User'
 const getAll = async (req: IReq, res: IRes) => {
   if (!Authorization.isAuthorized(req, res, [UserType.ADMIN])) return
   const employees = await EmployeeService.getAll()
-  res.status(HttpStatusCodes.OK).json({ employees })
+  const publicEmployees = employees.map(employee => Employee.ObtainPublicEmployee(employee))
+  res.status(HttpStatusCodes.OK).json({ employees: publicEmployees })
 }
 
 const add = async (req: IReq, res: IRes) => {
