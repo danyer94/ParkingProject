@@ -1,6 +1,6 @@
 import HttpStatusCodes from '@src/common/HttpStatusCodes'
 import { UserType } from '@src/models/User'
-import { IReq, IRes } from '@src/routes/common/types'
+import { IReq, IRes, UserSession } from '@src/routes/common/types'
 
 const isAdmin = (req: IReq, res: IRes) => {
   const session = (req.body as any).session
@@ -30,7 +30,7 @@ const isCustomer = (req: IReq, res: IRes) => {
 }
 
 const isAuthorized = (req: IReq, res: IRes, authorizedUsersType: UserType[]) => {
-  const session = (req.body as any).session
+  const session = req.session
   if (!session?.user?.role || !authorizedUsersType.includes(session?.user?.role)) {
     res.status(HttpStatusCodes.UNAUTHORIZED).send('Unauthorized')
     return false

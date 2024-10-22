@@ -14,7 +14,7 @@ import EnvVars from '@src/common/EnvVars'
 import HttpStatusCodes from '@src/common/HttpStatusCodes'
 import { RouteError } from '@src/common/classes'
 import { NodeEnvs } from '@src/common/misc'
-import jwt from 'jsonwebtoken'
+import { userExtractionMiddleware } from './util/middlewares'
 
 // **** Variables **** //
 
@@ -26,20 +26,7 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser(EnvVars.CookieProps.Secret))
-app.use((req, res, next) => {
-  const token = req.headers.authorization
-  // if (!token) res.status(HttpStatusCodes.UNAUTHORIZED).json({ message: 'No token provided' })
-  if (token) {
-    let data
-    try {
-      data = jwt.verify(token, EnvVars.Jwt.Secret) as jwt.JwtPayload
-      req.body = { ...req.body, session: { user: data } }
-    } catch (error) {
-      console.log({ error })
-    }
-  }
-  next()
-})
+app.use(userExtractionMiddleware)
 
 // Show routes called in console during development
 if (EnvVars.NodeEnv === NodeEnvs.Dev.valueOf()) {

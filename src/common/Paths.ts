@@ -2,8 +2,6 @@
  * Express router paths go here.
  */
 
-import { Sign } from 'crypto'
-
 const crud_base = {
   Get: '/all',
   Add: '/add',
