@@ -12,12 +12,14 @@ const crud_base = {
 export default {
   Base: '/api',
   Login: {
-    public: '/login',
-    private: '/login/private',
+    Base: '/login',
+    Public: '/public',
+    Private: '/private',
   },
   Signup: {
-    public: '/signup',
-    private: '/signup/private',
+    Base: '/signup',
+    Public: '/public',
+    Private: '/private',
   },
   Users: {
     Base: '/users',
@@ -48,5 +50,9 @@ export default {
     Base: '/reservations',
     ...crud_base,
     Reserve: '/reserve',
+  },
+  ActivityLogs: {
+    Base: '/activity-logs',
+    ...crud_base,
   },
 } as const

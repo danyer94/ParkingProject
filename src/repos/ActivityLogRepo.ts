@@ -18,10 +18,14 @@ export class ActivityLogRepo {
     this.model = model
   }
 
-  getAll = async (
+  getAll = async (options?: PaginationOptions & SortingOptions & QueryExtraOptions): Promise<ActivityLogDocument[]> => {
+    return this.getByFilter({}, options)
+  }
+
+  getByFilter = async (
     filter: FilterQuery<ActivityLog>,
     options?: PaginationOptions & SortingOptions & QueryExtraOptions
-  ) => {
+  ): Promise<ActivityLogDocument[]> => {
     const {
       page = this.defaultPage,
       limit = this.defaultLimit,
@@ -40,11 +44,20 @@ export class ActivityLogRepo {
     return query.exec()
   }
 
-  getById = (id: string, options?: QueryExtraOptions) => {
+  getById = (id: string, options?: QueryExtraOptions): Promise<ActivityLogDocument> => {
     const { selectFields } = options ?? {}
     const query = this.model.findById(id)
     if (selectFields) query.select(selectFields)
     return query.exec()
+  }
+
+  persists = async (id: string): Promise<boolean> => {
+    try {
+      const activityLog = await this.getById(id)
+      return !!activityLog
+    } catch (error) {
+      throw new Error(JSON.stringify(error))
+    }
   }
 
   add = (activityLog: ActivityLog) => {
@@ -79,3 +92,5 @@ export class ActivityLogRepo {
     })
   }
 }
+
+export const activityLogRepo = new ActivityLogRepo(activityLogModel)
