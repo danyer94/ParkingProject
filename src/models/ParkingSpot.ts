@@ -30,10 +30,10 @@ const isPartialParkingSpot = (arg: unknown): arg is Partial<ParkingSpot> => {
   return (
     !!arg &&
     typeof arg === 'object' &&
-    (('id' in arg && typeof arg.id === 'number') ||
-      ('spotNumber' in arg && typeof arg.spotNumber === 'string') ||
-      ('isReserved' in arg && typeof arg.isReserved === 'boolean') ||
-      ('location' in arg ? typeof arg.location === 'string' : false))
+    ('id' in arg ? typeof arg.id === 'number' : true) &&
+    ('spotNumber' in arg ? typeof arg.spotNumber === 'string' : true) &&
+    ('isReserved' in arg ? typeof arg.isReserved === 'boolean' : true) &&
+    ('location' in arg ? typeof arg.location === 'string' : true)
   )
 }
 

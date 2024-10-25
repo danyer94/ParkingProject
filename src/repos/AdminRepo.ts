@@ -65,8 +65,14 @@ const add = async (admin: Admin): Promise<Admin> => {
 
 const update = async (id: number, data: Partial<Admin>) => {
   try {
+    const admin = await getById(id)
+    Object.keys(data).forEach(key => {
+      if (key in admin) {
+        ;(admin as any)[key] = (data as any)[key]
+      }
+    })
     const db = getDatabase()
-    await db.update(adminsTable).set(data).where(eq(adminsTable.id, id))
+    await db.update(adminsTable).set(admin).where(eq(adminsTable.id, id))
   } catch (error) {
     throw new Error(JSON.stringify(error))
   }

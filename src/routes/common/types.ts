@@ -19,3 +19,13 @@ export type UserSession = {
   username: string
   role: UserType
 }
+
+export type PaginationOptions = {
+  page?: number
+  limit?: number
+}
+
+export type QueryExtraOptions = {
+  populateFields?: string[]
+  selectFields?: string
+}

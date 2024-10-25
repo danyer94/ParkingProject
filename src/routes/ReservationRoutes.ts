@@ -7,6 +7,8 @@ import Vehicle from '@src/models/Vehicle'
 import { dateValidaton } from '@src/util'
 import Authorization from '@src/util/Authorization'
 import { UserType } from '@src/models/User'
+import { ActivityLog, LogActivityType } from '@src/models/ActivityLog'
+import ActivityLogService from '@src/services/ActivityLogService'
 
 const getAll = async (req: IReq, res: IRes) => {
   if (!Authorization.isAuthorized(req, res, [UserType.ADMIN, UserType.EMPLOYEE])) return
@@ -47,6 +49,20 @@ const reserve = async (req: IReq, res: IRes) => {
   const responseJson = reservationDetails
     ? { reservationDetails }
     : { reservationDetails: 'There are no available spots in the given time interval' }
+  if (reservationDetails) {
+    try {
+      const newActivityLog: ActivityLog = {
+        activityType: LogActivityType.RESERVATION,
+        date: new Date(Date.now()),
+        customerId: reservationDetails.customerId,
+        description: `Reserved vehicle: ${vehicle.licensePlate} from ${startTime} to ${endTime}`,
+      }
+      ActivityLogService.addOne(newActivityLog)
+    } catch (error) {
+      console.log(`Adding the activity log to MongoDB database failed`)
+      console.log(error.message)
+    }
+  }
   res.status(HttpStatusCodes.OK).json(responseJson)
 }
 

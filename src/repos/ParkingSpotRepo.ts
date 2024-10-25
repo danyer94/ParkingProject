@@ -55,8 +55,14 @@ const add = async (parkingSpot: ParkingSpot) => {
 
 const update = async (id: number, data: Partial<ParkingSpot>) => {
   try {
+    const parkingSpot = await getById(id)
+    Object.keys(data).forEach(key => {
+      if (key in parkingSpot) {
+        ;(parkingSpot as any)[key] = (data as any)[key]
+      }
+    })
     const db = getDatabase()
-    await db.update(parkingSpotsTable).set(data).where(eq(parkingSpotsTable.id, id))
+    await db.update(parkingSpotsTable).set(parkingSpot).where(eq(parkingSpotsTable.id, id))
   } catch (error) {
     throw new Error(JSON.stringify(error))
   }

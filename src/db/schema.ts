@@ -41,6 +41,7 @@ export const customersTable = pgTable('customers', {
   phoneNumber: text('phoneNumber'),
   role: text('role').notNull(), // 'customer'
   permissions: text('permissions'),
+  password: text('password'),
   address: text('address'),
   ...timestamps,
 })

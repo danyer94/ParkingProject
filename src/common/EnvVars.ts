@@ -21,4 +21,5 @@ export default {
     Exp: process.env.COOKIE_EXP ?? '', // exp at the same time as the cookie
   },
   db_url: process.env.DATABASE_URL ?? '',
+  Mongo_Url: process.env.MONGO_URL ?? '',
 } as const

@@ -9,6 +9,7 @@ import VehicleRoutes from './VehicleRoutes'
 import ParkingSpotRoutes from './ParkingSpotRoutes'
 import ReservationRoutes from './ReservationRoutes'
 import LoginRoutes from './LoginRoutes'
+import ActivityLogRoutes from './ActivityLogRoutes'
 
 // **** Variables **** //
 
@@ -25,6 +26,7 @@ const vehicleRouter = Router()
 const parkingSpotRouter = Router()
 const reservationRouter = Router()
 const loginRouter = Router()
+const activityLogRouter = Router()
 
 // Get all users
 userRouter.get(Paths.Users.Get, UserRoutes.getAll)
@@ -71,8 +73,14 @@ reservationRouter.delete(Paths.Reservations.Delete, ReservationRoutes.delete)
 reservationRouter.post(Paths.Reservations.Reserve, ReservationRoutes.reserve)
 
 //Login routes
-loginRouter.post(Paths.Login.public, LoginRoutes.customerLogin)
-loginRouter.post(Paths.Login.private, LoginRoutes.adminEmployeeLogin)
+loginRouter.post(Paths.Login.Public, LoginRoutes.customerLogin)
+loginRouter.post(Paths.Login.Private, LoginRoutes.adminEmployeeLogin)
+
+//ActivityLogRoutes
+activityLogRouter.get(Paths.ActivityLogs.Get, ActivityLogRoutes.getAll)
+activityLogRouter.post(Paths.ActivityLogs.Add, ActivityLogRoutes.add)
+activityLogRouter.put(Paths.ActivityLogs.Update, ActivityLogRoutes.update)
+activityLogRouter.delete(Paths.ActivityLogs.Delete, ActivityLogRoutes.delete)
 
 apiRouter.use(Paths.Users.Base, userRouter)
 apiRouter.use(Paths.Admins.Base, adminRouter)
@@ -81,7 +89,8 @@ apiRouter.use(Paths.Customers.Base, customerRouter)
 apiRouter.use(Paths.Vehicles.Base, vehicleRouter)
 apiRouter.use(Paths.ParkingSpots.Base, parkingSpotRouter)
 apiRouter.use(Paths.Reservations.Base, reservationRouter)
-apiRouter.use(loginRouter)
+apiRouter.use(Paths.Login.Base, loginRouter)
+apiRouter.use(Paths.ActivityLogs.Base, activityLogRouter)
 
 // **** Export default **** //
 
