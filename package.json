@@ -16,8 +16,10 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/mongoose": "^5.11.96",
     "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",

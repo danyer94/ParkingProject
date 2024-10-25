@@ -5,11 +5,16 @@ import { Employee } from '@src/models/Employee'
 import AdminRepo from '@src/repos/AdminRepo'
 import CustomerRepo from '@src/repos/CustomerRepo'
 import EmployeeRepo from '@src/repos/EmployeeRepo'
+import bcrypt from 'bcrypt'
 
 const customerLogin = async (username: string, password: string) => {
   const customer = await CustomerRepo.getByUsername(username)
   if (!customer) {
     throw new RouteError(HttpStatusCodes.NOT_FOUND, 'Customer not found')
+  }
+  const isValidPassword = bcrypt.compareSync(password, customer.password)
+  if (!isValidPassword) {
+    throw new RouteError(HttpStatusCodes.UNAUTHORIZED, 'Invalid username or password')
   }
   if (customer.password !== password) {
     throw new RouteError(HttpStatusCodes.UNAUTHORIZED, 'Invalid username or password')
@@ -25,15 +30,16 @@ const adminEmployeeLogin = async (username: string, password: string): Promise<A
     if (!employee) {
       throw new RouteError(HttpStatusCodes.NOT_FOUND, 'User not found')
     }
-    if (employee.password !== password) {
+    const isValidPassword = bcrypt.compareSync(password, employee.password)
+    if (!isValidPassword) {
       throw new RouteError(HttpStatusCodes.UNAUTHORIZED, 'Invalid username or password')
     }
     return employee
   }
-  if (admin.password !== password) {
+  const isValidPassword = bcrypt.compareSync(password, admin.password)
+  if (!isValidPassword) {
     throw new RouteError(HttpStatusCodes.UNAUTHORIZED, 'Invalid username or password')
   }
-  // const token = await TokenService.generateToken(user)
   return admin
 }
 
