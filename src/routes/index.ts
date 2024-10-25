@@ -26,6 +26,7 @@ const vehicleRouter = Router()
 const parkingSpotRouter = Router()
 const reservationRouter = Router()
 const loginRouter = Router()
+const signupRouter = Router()
 const activityLogRouter = Router()
 
 // Get all users
@@ -37,38 +38,38 @@ userRouter.delete(Paths.Users.Delete, UserRoutes.delete)
 //Admins routes
 adminRouter.get(Paths.Admins.Get, AdminRoutes.getAll)
 adminRouter.post(Paths.Admins.Add, AdminRoutes.add)
-adminRouter.put(Paths.Admins.Update, AdminRoutes.update)
+adminRouter.patch(Paths.Admins.Update, AdminRoutes.update)
 adminRouter.delete(Paths.Admins.Delete, AdminRoutes.delete)
 
 //Employees routes
 employeeRouter.get(Paths.Employees.Get, EmployeeRoutes.getAll)
 employeeRouter.post(Paths.Employees.Add, EmployeeRoutes.add)
-employeeRouter.put(Paths.Employees.Update, EmployeeRoutes.update)
+employeeRouter.patch(Paths.Employees.Update, EmployeeRoutes.update)
 employeeRouter.delete(Paths.Employees.Delete, EmployeeRoutes.delete)
 
 //Customers routes
 customerRouter.get(Paths.Customers.Get, CustomerRoutes.getAll)
 customerRouter.post(Paths.Customers.Add, CustomerRoutes.add)
-customerRouter.put(Paths.Customers.Update, CustomerRoutes.update)
+customerRouter.patch(Paths.Customers.Update, CustomerRoutes.update)
 customerRouter.delete(Paths.Customers.Delete, CustomerRoutes.delete)
 
 //Vehicles routes
 vehicleRouter.get(Paths.Vehicles.Get, VehicleRoutes.getAll)
 vehicleRouter.post(Paths.Vehicles.Add, VehicleRoutes.add)
-vehicleRouter.put(Paths.Vehicles.Update, VehicleRoutes.update)
+vehicleRouter.patch(Paths.Vehicles.Update, VehicleRoutes.update)
 vehicleRouter.delete(Paths.Vehicles.Delete, VehicleRoutes.delete)
 
 //Parking Spots routes
 parkingSpotRouter.get(Paths.ParkingSpots.Get, ParkingSpotRoutes.getAll)
 parkingSpotRouter.post(Paths.ParkingSpots.Add, ParkingSpotRoutes.add)
-parkingSpotRouter.put(Paths.ParkingSpots.Update, ParkingSpotRoutes.update)
+parkingSpotRouter.patch(Paths.ParkingSpots.Update, ParkingSpotRoutes.update)
 parkingSpotRouter.delete(Paths.ParkingSpots.Delete, ParkingSpotRoutes.delete)
 parkingSpotRouter.post(Paths.ParkingSpots.OccupationDetails, ParkingSpotRoutes.getParkingOccupationDetails)
 
 //Reservations routes
 reservationRouter.get(Paths.Reservations.Get, ReservationRoutes.getAll)
 reservationRouter.post(Paths.Reservations.Add, ReservationRoutes.add)
-reservationRouter.put(Paths.Reservations.Update, ReservationRoutes.update)
+reservationRouter.patch(Paths.Reservations.Update, ReservationRoutes.update)
 reservationRouter.delete(Paths.Reservations.Delete, ReservationRoutes.delete)
 reservationRouter.post(Paths.Reservations.Reserve, ReservationRoutes.reserve)
 
@@ -76,10 +77,13 @@ reservationRouter.post(Paths.Reservations.Reserve, ReservationRoutes.reserve)
 loginRouter.post(Paths.Login.Public, LoginRoutes.customerLogin)
 loginRouter.post(Paths.Login.Private, LoginRoutes.adminEmployeeLogin)
 
+//Signup routes
+signupRouter.post(Paths.Signup.Private, LoginRoutes.adminSignup)
+
 //ActivityLogRoutes
 activityLogRouter.get(Paths.ActivityLogs.Get, ActivityLogRoutes.getAll)
 activityLogRouter.post(Paths.ActivityLogs.Add, ActivityLogRoutes.add)
-activityLogRouter.put(Paths.ActivityLogs.Update, ActivityLogRoutes.update)
+activityLogRouter.patch(Paths.ActivityLogs.Update, ActivityLogRoutes.update)
 activityLogRouter.delete(Paths.ActivityLogs.Delete, ActivityLogRoutes.delete)
 
 apiRouter.use(Paths.Users.Base, userRouter)
@@ -90,6 +94,7 @@ apiRouter.use(Paths.Vehicles.Base, vehicleRouter)
 apiRouter.use(Paths.ParkingSpots.Base, parkingSpotRouter)
 apiRouter.use(Paths.Reservations.Base, reservationRouter)
 apiRouter.use(Paths.Login.Base, loginRouter)
+apiRouter.use(Paths.Signup.Base, signupRouter)
 apiRouter.use(Paths.ActivityLogs.Base, activityLogRouter)
 
 // **** Export default **** //

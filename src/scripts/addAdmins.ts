@@ -1,5 +1,5 @@
 import { Admin } from '@src/models/Admin'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import fs from 'fs'
 
 const admins: Admin[] = JSON.parse(
@@ -9,10 +9,26 @@ const admins: Admin[] = JSON.parse(
   )
 )
 
+const token =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJqcGVyZXoiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mjk4OTQ5MjIsImV4cCI6MTczMDE1NDEyMn0.RwHTYkXOU9mW-moH0bsN1o0mOjqZnWm40R-97Ezj_rY'
+
 const addAdmins = async () => {
   try {
     const responses = await Promise.all(
-      admins.map(admin => axios.post('http://localhost:3000/api/admins/add', { admin }))
+      admins.map((admin, index) => {
+        if (index > 0) {
+          // Skip the first admin (its already added)
+          return axios.post(
+            'http://localhost:3000/api/admins/add',
+            { admin },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+        }
+      })
     )
 
     responses.forEach(response => {

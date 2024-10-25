@@ -22,4 +22,5 @@ export default {
   },
   db_url: process.env.DATABASE_URL ?? '',
   Mongo_Url: process.env.MONGO_URL ?? '',
+  Salt: process.env.BCRYPT_SALT,
 } as const

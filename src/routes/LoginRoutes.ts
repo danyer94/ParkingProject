@@ -6,7 +6,29 @@ import jwt from 'jsonwebtoken'
 import EnvVars from '@src/common/EnvVars'
 import Customer, { PublicCustomer } from '@src/models/Customer'
 import Employee from '@src/models/Employee'
-import Admin from '@src/models/Admin'
+import Admin, { PublicAdmin } from '@src/models/Admin'
+import check from './common/check'
+
+const adminSignup = async (req: IReq, res: IRes) => {
+  const admin = check.isValid(req.body, 'admin', Admin.isAdmin)
+  try {
+    await LoginService.adminSignup(admin)
+    const token = jwt.sign({ id: admin.id, username: admin.username, role: admin.role }, EnvVars.Jwt.Secret, {
+      expiresIn: EnvVars.Jwt.Exp,
+    })
+    const publicAdmin: PublicAdmin = Admin.ObtainPublicAdmin(admin)
+    res
+      .cookie('access_token', token, EnvVars.CookieProps.Options)
+      .status(HttpStatusCodes.CREATED)
+      .json({ publicAdmin, token })
+  } catch (error) {
+    if (error instanceof RouteError) {
+      res.status(error.status).json({ message: error.message })
+    } else {
+      res.status
+    }
+  }
+}
 
 const customerLogin = async (req: IReq, res: IRes) => {
   const { username, password } = req.body
@@ -56,4 +78,5 @@ const adminEmployeeLogin = async (req: IReq, res: IRes) => {
 export default {
   customerLogin,
   adminEmployeeLogin,
+  adminSignup,
 }

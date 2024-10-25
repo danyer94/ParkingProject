@@ -9,14 +9,27 @@ const employees: Employee[] = JSON.parse(
   )
 )
 
+const token =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJqcGVyZXoiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mjk4OTQ5MjIsImV4cCI6MTczMDE1NDEyMn0.RwHTYkXOU9mW-moH0bsN1o0mOjqZnWm40R-97Ezj_rY'
+
 const addEmployees = async () => {
   try {
     const responses = await Promise.all(
-      employees.map(employee => axios.post('http://localhost:3000/api/employees/add', { employee }))
+      employees.map(employee =>
+        axios.post(
+          'http://localhost:3000/api/employees/add',
+          { employee },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+      )
     )
 
     responses.forEach(response => {
-      console.log(`Employee added: ${response}`)
+      console.log(`Employee added: ${response.data}`)
     })
   } catch (error) {
     console.error('Error adding admins:', error)
