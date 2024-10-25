@@ -1,3 +1,4 @@
+import EnvVars from '@src/common/EnvVars'
 import HttpStatusCodes from '@src/common/HttpStatusCodes'
 import { RouteError } from '@src/common/classes'
 import { Admin } from '@src/models/Admin'
@@ -6,6 +7,15 @@ import AdminRepo from '@src/repos/AdminRepo'
 import CustomerRepo from '@src/repos/CustomerRepo'
 import EmployeeRepo from '@src/repos/EmployeeRepo'
 import bcrypt from 'bcrypt'
+
+const adminSignup = async (admin: Admin) => {
+  const adminExist = await AdminRepo.getByUsername(admin.username)
+  if (adminExist) {
+    throw new RouteError(HttpStatusCodes.CONFLICT, 'Username already exists')
+  }
+  admin.password = bcrypt.hashSync(admin.password, Number(EnvVars.Salt))
+  return AdminRepo.add(admin)
+}
 
 const customerLogin = async (username: string, password: string) => {
   const customer = await CustomerRepo.getByUsername(username)
@@ -46,4 +56,5 @@ const adminEmployeeLogin = async (username: string, password: string): Promise<A
 export default {
   adminEmployeeLogin,
   customerLogin,
+  adminSignup,
 }

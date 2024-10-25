@@ -21,6 +21,8 @@ const updateOne = async (id: number, data: Partial<Employee>) => {
   if (!persists) {
     throw new RouteError(HttpStatusCodes.NOT_FOUND, EMPLOYEE_NOT_FOUND_ERR)
   }
+  if ('password' in data && typeof data.password === 'string')
+    data.password = bcrypt.hashSync(data.password, Number(EnvVars.Salt))
   const updatedEmployee = await EmployeeRepo.update(id, data)
   return updatedEmployee
 }

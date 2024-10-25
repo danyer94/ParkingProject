@@ -21,6 +21,8 @@ const updateOne = async (id: number, data: Partial<Admin>) => {
   if (!persists) {
     throw new RouteError(HttpStatusCodes.NOT_FOUND, ADMIN_NOT_FOUND_ERR)
   }
+  if ('password' in data && typeof data.password === 'string')
+    data.password = bcrypt.hashSync(data.password, Number(EnvVars.Salt))
   const updatedAdmin = await AdminRepo.update(id, data)
   return updatedAdmin
 }
