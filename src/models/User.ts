@@ -86,13 +86,12 @@ const isPartialUser = (arg: unknown): arg is Partial<IUser> => {
   return (
     !!arg &&
     typeof arg === 'object' &&
-    (('id' in arg && typeof arg.id === 'number') ||
-      ('name' in arg && typeof arg.name === 'string') ||
-      ('email' in arg && typeof arg.email === 'string') ||
-      ('phoneNumber' in arg && typeof arg.phoneNumber === 'string') ||
-      ('role' in arg && Object.values(UserType).includes(arg.role as UserType)) ||
-      ('permissions' in arg && typeof arg.permissions === 'string')) /*||
-      ('created' in arg && moment(arg.created as string | Date).isValid())*/
+    ('id' in arg ? typeof arg.id === 'number' : true) &&
+    ('name' in arg ? typeof arg.name === 'string' : true) &&
+    ('email' in arg ? typeof arg.email === 'string' : true) &&
+    ('phoneNumber' in arg ? typeof arg.phoneNumber === 'string' : true) &&
+    ('role' in arg ? Object.values(UserType).includes(arg.role as UserType) : true) &&
+    ('permissions' in arg ? typeof arg.permissions === 'string' : true)
   )
 }
 

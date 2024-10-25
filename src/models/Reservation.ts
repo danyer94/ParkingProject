@@ -19,14 +19,21 @@ export function isReservation(arg: unknown): arg is Reservation {
   const isValidStatus =
     isArgValid && 'status' in arg && Object.values(ReservationStatus).includes(arg.status as ReservationStatus)
   return (
-    typeof arg === 'object' &&
-    arg !== null &&
+    isArgValid &&
     'id' in arg &&
+    typeof arg.id === 'number' &&
     'customerId' in arg &&
+    typeof arg.customerId === 'number' &&
     'vehicleId' in arg &&
+    typeof arg.vehicleId === 'number' &&
     'parkingSpotId' in arg &&
+    typeof arg.parkingSpotId === 'number' &&
     'startTime' in arg &&
+    typeof arg.startTime === 'string' &&
+    Boolean(Date.parse(arg.startTime)) &&
     'endTime' in arg &&
+    typeof arg.endTime === 'string' &&
+    Boolean(Date.parse(arg.endTime)) &&
     isValidStatus
   )
 }
@@ -36,15 +43,14 @@ export function isPartialReservation(arg: unknown): arg is Partial<Reservation> 
   const isValidStatus =
     isArgValid && 'status' in arg && Object.values(ReservationStatus).includes(arg.status as ReservationStatus)
   return (
-    typeof arg === 'object' &&
-    arg !== null &&
-    ('id' in arg ||
-      'customerId' in arg ||
-      'vehicleId' in arg ||
-      'parkingSpotId' in arg ||
-      'startTime' in arg ||
-      'endTime' in arg ||
-      ('status' in arg && isValidStatus))
+    isArgValid &&
+    ('id' in arg ? typeof arg.id === 'number' : true) &&
+    ('customerId' in arg ? typeof arg.customerId === 'number' : true) &&
+    ('vehicleId' in arg ? typeof arg.vehicleId === 'number' : true) &&
+    ('parkingSpotId' in arg ? typeof arg.parkingSpotId === 'number' : true) &&
+    ('startTime' in arg ? typeof arg.startTime === 'string' && Boolean(Date.parse(arg.startTime)) : true) &&
+    ('endTime' in arg ? typeof arg.endTime === 'string' && Boolean(Date.parse(arg.endTime)) : true) &&
+    ('status' in arg ? isValidStatus : true)
   )
 }
 

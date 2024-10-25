@@ -15,6 +15,7 @@ const isCustomer = (arg: unknown): arg is Customer => {
     User.isUser(arg) &&
     typeof arg === 'object' &&
     'password' in arg &&
+    typeof arg.password === 'string' &&
     ('address' in arg ? typeof arg.address === 'string' : true)
   )
 }
@@ -23,9 +24,9 @@ const isPartialCustomer = (arg: unknown): arg is Partial<Customer> => {
   return (
     !!arg &&
     typeof arg === 'object' &&
-    (User.isPartialUser(arg) ||
-      ('password' in arg && typeof arg.password === 'string') ||
-      ('address' in arg ? typeof arg.address === 'string' : false))
+    User.isPartialUser(arg) &&
+    ('password' in arg ? typeof arg.password === 'string' : true) &&
+    ('address' in arg ? typeof arg.address === 'string' : true)
   )
 }
 
