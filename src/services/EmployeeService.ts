@@ -1,7 +1,9 @@
 import { RouteError } from '@src/common/classes'
+import EnvVars from '@src/common/EnvVars'
 import HttpStatusCodes from '@src/common/HttpStatusCodes'
 import { Employee } from '@src/models/Employee'
 import EmployeeRepo from '@src/repos/EmployeeRepo'
+import bcrypt from 'bcrypt'
 
 export const EMPLOYEE_NOT_FOUND_ERR = 'Employee not found'
 
@@ -10,6 +12,7 @@ const getAll = () => {
 }
 
 const addOne = (employee: Employee) => {
+  employee.password = bcrypt.hashSync(employee.password, Number(EnvVars.Salt))
   return EmployeeRepo.add(employee)
 }
 

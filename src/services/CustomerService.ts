@@ -1,7 +1,9 @@
 import { RouteError } from '@src/common/classes'
+import EnvVars from '@src/common/EnvVars'
 import HttpStatusCodes from '@src/common/HttpStatusCodes'
 import { Customer } from '@src/models/Customer'
 import CustomerRepo from '@src/repos/CustomerRepo'
+import bcrypt from 'bcrypt'
 
 export const CUSTOMER_NOT_FOUND_ERR = 'Customer not found'
 
@@ -10,6 +12,7 @@ const getAll = () => {
 }
 
 const addOne = (customer: Customer) => {
+  customer.password = bcrypt.hashSync(customer.password, Number(EnvVars.Salt))
   return CustomerRepo.add(customer)
 }
 

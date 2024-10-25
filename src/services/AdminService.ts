@@ -1,7 +1,9 @@
 import { RouteError } from '@src/common/classes'
+import EnvVars from '@src/common/EnvVars'
 import HttpStatusCodes from '@src/common/HttpStatusCodes'
 import { Admin } from '@src/models/Admin'
 import AdminRepo from '@src/repos/AdminRepo'
+import bcrypt from 'bcrypt'
 
 export const ADMIN_NOT_FOUND_ERR = 'Admin not found'
 
@@ -10,6 +12,7 @@ const getAll = () => {
 }
 
 const addOne = (admin: Admin) => {
+  admin.password = bcrypt.hashSync(admin.password, Number(EnvVars.Salt))
   return AdminRepo.add(admin)
 }
 
