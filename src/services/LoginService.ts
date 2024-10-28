@@ -26,10 +26,6 @@ const customerLogin = async (username: string, password: string) => {
   if (!isValidPassword) {
     throw new RouteError(HttpStatusCodes.UNAUTHORIZED, 'Invalid username or password')
   }
-  if (customer.password !== password) {
-    throw new RouteError(HttpStatusCodes.UNAUTHORIZED, 'Invalid username or password')
-  }
-  // const token = await TokenService.generateToken(user)
   return customer
 }
 
