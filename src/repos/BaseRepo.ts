@@ -1,7 +1,7 @@
 import jsonfile from 'jsonfile'
 
 import { IUser } from '@src/models/User'
-import { Employee } from '@src/models/Employee'
+import { IEmployee } from '@src/models/Employee'
 import { Admin } from '@src/models/Admin'
 import { Customer } from '@src/models/Customer'
 import { Vehicle } from '@src/models/Vehicle'
@@ -19,7 +19,7 @@ const DB_FILE_NAME = 'database.json'
 
 interface IDb {
   users: IUser[]
-  employees: Employee[]
+  employees: IEmployee[]
   admins: Admin[]
   customers: Customer[]
   vehicles: Vehicle[]

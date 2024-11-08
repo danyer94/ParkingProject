@@ -3,15 +3,15 @@ import 'dotenv/config'
 import { drizzle } from 'drizzle-orm/connect'
 import mongoose from 'mongoose'
 
-const main = async () => {
-  console.log({ DB_URL: EnvVars.db_url })
-  console.log(`...Connecting to the database ${EnvVars.db_url}`)
-  const db = await drizzle('node-postgres', EnvVars.db_url)
+const PostgresDBConnect = async (url: string) => {
+  console.log({ DB_URL: url })
+  console.log(`...Connecting to the database ${url}`)
+  const db = await drizzle('node-postgres', url)
   if (db) console.log('Connection to the Postgres database was successful')
   else console.log('Connection to the Postgres database failed')
 }
 
-main()
+PostgresDBConnect(EnvVars.db_url)
 
 mongoose.Promise = global.Promise
 let isConnected = false
@@ -35,4 +35,4 @@ const MongoDBConnect = (url: string): Promise<typeof mongoose> => {
   })
 }
 
-export { MongoDBConnect }
+export { PostgresDBConnect, MongoDBConnect }

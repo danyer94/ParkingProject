@@ -1,5 +1,5 @@
 import { employeesTable } from '@src/db/schema'
-import { Employee } from '@src/models/Employee'
+import { IEmployee } from '@src/models/Employee'
 import { getDatabase } from './RepoUtils'
 import { eq } from 'drizzle-orm'
 
@@ -7,7 +7,7 @@ const getById = async (id: number) => {
   try {
     const db = getDatabase()
     const employee = (await db.select().from(employeesTable).where(eq(employeesTable.id, id)).limit(1))[0]
-    return employee as Employee
+    return employee as IEmployee
   } catch (error) {
     throw new Error(JSON.stringify(error))
   }
@@ -17,7 +17,7 @@ const getByUsername = async (username: string) => {
   try {
     const db = getDatabase()
     const employee = (await db.select().from(employeesTable).where(eq(employeesTable.username, username)).limit(1))[0]
-    return employee as Employee
+    return employee as IEmployee
   } catch (error) {
     throw new Error(JSON.stringify(error))
   }
@@ -36,7 +36,7 @@ const getAll = async () => {
   try {
     const db = getDatabase()
     const empmloyees = await db.select().from(employeesTable)
-    return empmloyees as Employee[]
+    return empmloyees as IEmployee[]
   } catch (error) {
     throw new Error(JSON.stringify(error))
   }
@@ -52,18 +52,18 @@ const getAll = async () => {
 //   }
 // }
 
-const add = async (employee: Employee) => {
+const add = async (employee: IEmployee) => {
   try {
     const db = getDatabase()
     const employeeEntity: typeof employeesTable.$inferInsert = { ...employee }
     const addedEmployee = await db.insert(employeesTable).values(employeeEntity)
-    return addedEmployee as unknown as Employee
+    return addedEmployee as unknown as IEmployee
   } catch (error) {
     throw new Error(JSON.stringify(error))
   }
 }
 
-const update = async (id: number, data: Partial<Employee>) => {
+const update = async (id: number, data: Partial<IEmployee>) => {
   try {
     const employee = await getById(id)
     Object.keys(data).forEach(key => {
@@ -72,7 +72,8 @@ const update = async (id: number, data: Partial<Employee>) => {
       }
     })
     const db = getDatabase()
-    await db.update(employeesTable).set(employee).where(eq(employeesTable.id, id))
+    const updated = await db.update(employeesTable).set(employee).where(eq(employeesTable.id, id)).returning()
+    return updated[0] as IEmployee
   } catch (error) {
     throw new Error(JSON.stringify(error))
   }

@@ -24,8 +24,8 @@ const update = async (req: IReq, res: IRes) => {
   if (!Authorization.isAuthorized(req, res, [UserType.ADMIN])) return
   const id = Number(req.params.id)
   const employee = check.isValid(req.body, 'employee', Employee.isPartialEmployee)
-  await EmployeeService.updateOne(id, employee)
-  res.status(HttpStatusCodes.OK).end()
+  const updatedEmloyee = await EmployeeService.updateOne(id, employee)
+  res.status(HttpStatusCodes.OK).json({ updatedEmloyee })
 }
 
 const delete_ = async (req: IReq, res: IRes) => {

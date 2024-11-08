@@ -22,6 +22,7 @@ export default tseslint.config(
   {
     plugins: {
       '@stylistic/ts': stylisticTs,
+      cypress: 'cypress',
     },
   },
   { files: ['**/*.ts'] },
@@ -55,6 +56,9 @@ export default tseslint.config(
       'n/no-process-env': 1,
       'n/no-missing-import': 0,
       'n/no-unpublished-import': 0,
+    },
+    env: {
+      'cypress/globals': true,
     },
   }
 )

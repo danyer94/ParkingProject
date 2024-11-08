@@ -1,8 +1,8 @@
-import { Employee } from '@src/models/Employee'
+import { IEmployee } from '@src/models/Employee'
 import axios from 'axios'
 import fs from 'fs'
 
-const employees: Employee[] = JSON.parse(
+const employees: IEmployee[] = JSON.parse(
   fs.readFileSync(
     '/home/danyer/Documents/Trabajo/Prueba técnica con Guajiritos SRL/ParkingProject/src/models/employees.json',
     'utf8'

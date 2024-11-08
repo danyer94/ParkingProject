@@ -2,7 +2,7 @@ import EnvVars from '@src/common/EnvVars'
 import HttpStatusCodes from '@src/common/HttpStatusCodes'
 import { RouteError } from '@src/common/classes'
 import { Admin } from '@src/models/Admin'
-import { Employee } from '@src/models/Employee'
+import { IEmployee } from '@src/models/Employee'
 import AdminRepo from '@src/repos/AdminRepo'
 import CustomerRepo from '@src/repos/CustomerRepo'
 import EmployeeRepo from '@src/repos/EmployeeRepo'
@@ -29,7 +29,7 @@ const customerLogin = async (username: string, password: string) => {
   return customer
 }
 
-const adminEmployeeLogin = async (username: string, password: string): Promise<Admin | Employee> => {
+const adminEmployeeLogin = async (username: string, password: string): Promise<Admin | IEmployee> => {
   const admin = await AdminRepo.getByUsername(username)
   if (!admin) {
     const employee = await EmployeeRepo.getByUsername(username)
